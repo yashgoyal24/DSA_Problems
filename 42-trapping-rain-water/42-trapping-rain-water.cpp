@@ -11,7 +11,7 @@ public:
         maxLeft[0]=height[0];
         maxRight[height.size()-1]=height[height.size()-1];
         
-        for(int i=1;i<height.size();i++){
+        for(int i=1;i<height.size();++i){
             maxLeft[i]=max(maxLeft[i-1],height[i]);
         }
         
