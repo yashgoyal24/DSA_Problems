@@ -4,9 +4,10 @@ public:
         
         // find NGR for elements of array nums2
         
+        //use map to store number and its ngr as value
         
-         vector<int> result;
-        
+        map<int,int> mp;
+       
         
         stack<int> st;
         
@@ -18,7 +19,7 @@ public:
             //if empty stack
             
             if(st.size()==0){
-                result.push_back(-1);
+                mp[nums2[i]]=-1;
             }
             
             
@@ -27,7 +28,7 @@ public:
             else{
                 
                 if(st.top()>nums2[i]){
-                    result.push_back(st.top());
+                    mp[nums2[i]]=st.top();
                 }
                 
                 else{
@@ -35,9 +36,9 @@ public:
                         st.pop();
                     }
                     if(st.size()>0)
-                      result.push_back(st.top());
+                      mp[nums2[i]]=st.top();
                     else
-                        result.push_back(-1);
+                        mp[nums2[i]]=-1;
                 }
                 
                 
@@ -50,13 +51,8 @@ public:
             st.push(nums2[i]);
         }
         
-        //reverse to get correct order
-        
-        reverse(result.begin(),result.end());
-        
-    
-        
-        //result contains NGR for nums2
+      
+       
         
         //now traverse nums1 and push in vector
         
@@ -65,14 +61,7 @@ public:
         for(int i=0;i<nums1.size();i++){
             
         
-            for(int j=0;j<nums2.size();j++){
-                if(nums1[i]==nums2[j]){
-                    final_ans.push_back(result[j]);
-                    break;
-                }
-                
-            }
-            
+          final_ans.push_back(mp[nums1[i]]);
          
             
         }
