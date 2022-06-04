@@ -48,6 +48,6 @@ vector<int> ds;
         Func(candidates,target,idx+1);
         
          }
-        
+        return;
     }
 };
