@@ -38,9 +38,7 @@ public:
                         mp.erase(nums[i]);
                     i++;
                 }
-                
-                
-                
+              
                j++; 
             }
             
