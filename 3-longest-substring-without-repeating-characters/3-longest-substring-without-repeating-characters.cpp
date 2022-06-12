@@ -43,7 +43,9 @@ public:
                     
                     i++;
                 }
-                
+                if(j-i+1==mp.size()){
+                    maxi=max(maxi,j-i+1);
+                }
                  j++;
             }
             
