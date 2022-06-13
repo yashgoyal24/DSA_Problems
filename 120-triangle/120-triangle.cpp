@@ -6,11 +6,41 @@ int dp[200][200];
             return triangle[0][0];
         
         
-        memset(dp,-1,sizeof(dp));
-        return F(triangle,0, 0);
+        // dp solution
+        
+        int n=triangle.size();
+        
+        // fill for base case
+        
+        for(int j=0;j<triangle[n-1].size();j++){
+            dp[n-1][j]=triangle[n-1][j];
+        }
+        
+        // now do for rest of the cases
+        
+        for(int i=n-2;i>=0;i--){
+            
+            for(int j=0;j<triangle[i].size();j++){
+                
+                // copy recurrence as it is
+                
+        int bottom=dp[i+1][j]+triangle[i][j];
+        int diag=dp[i+1][j+1]+triangle[i][j];
+        dp[i][j]=min(bottom, diag);
+                
+                
+            }
+            
+        }
+        return dp[0][0];
+        
+        
+        
+       
+       // return F(triangle,0, 0);
     }
     
-    int F(vector<vector<int>>& triangle, int i, int j){
+ /*   int F(vector<vector<int>>& triangle, int i, int j){   // Memoization solution
         
         // F(i,j) = min cost path from (i,j) till any cell on the last row (destination)
         
@@ -30,5 +60,5 @@ int dp[200][200];
         
         
         
-    }
+    }*/
 };
