@@ -5,109 +5,62 @@ using namespace std;
  // } Driver Code Ends
 
 
-// KRUSKAL ALGORITHM
-
 class Solution
 {
+    
+    // PRIMS ALGORITHM
+    
 	public:
-	
-	
-		struct node{
-	    int weight;
-	    int u;
-	    int v;
-	    node(int wt,int u1,int v1){
-	        weight=wt;
-	        u=u1;
-	        v=v1;
-	    }
-	};
-	
-	
-	  vector<node> edges;
-	  int parent[1000];
-      int rank[1000];
-      
-
-	
-	static bool cmp(node n1,node n2){
-	    return n1.weight<n2.weight; // increasing order of weights
-	}
-	
-	int findParent(int x){
-	    if(parent[x]==x){
-	        return x;
-	    }
-	    return parent[x]=findParent(parent[x]); // path compression
-	}
-	
-	void unionn(int x,int y){
-	    x=findParent(x);
-	    y=findParent(y);
-	    if(rank[x]<rank[y]){
-	        parent[x]=y;
-	    }
-	    else if(rank[y]<rank[x]){
-	        parent[y]=x;
-	    }
-	    else // ranks are equal
-	    {
-	        parent[x]=y;
-	        rank[y]++;
-	    }
-	    
-	    
-	}
-	
-	
-	
 	//Function to find sum of weights of edges of the Minimum Spanning Tree.
     int spanningTree(int V, vector<vector<int>> adj[])
     {
-        int result=0;
-      
-        for(int i=0;i<V;i++){
+            // key, mst and parent array are needed
             
-            for(auto it:adj[i]){
-                edges.push_back(node(it[1],i,it[0]));
+            int result=0;
+            vector<int> key(V,INT_MAX);
+            vector<int> mst(V,0); // initially all are false
+            
+            key[0]=0; // source
+          //  priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>> q;
+         //   q.push({0,0}); // distance and respective node
+            for(int i=0;i<V-1;i++){
+                
+                // choose minimum among the keys
+                
+                int mini=INT_MAX;
+                int u;
+                for(int i=0;i<V;i++){
+                    if(mst[i]==0 && key[i]<mini){
+                        mini=key[i];
+                        u=i;
+                    }
+                }
+                
+               
+                mst[u]=1; // taken in mst
+                
+                // now will relax neighbours, update keys
+                
+                for(auto it:adj[u]){
+                    
+                    if(mst[it[0]]==0 && it[1]<key[it[0]]){
+                        
+                        // if current edge wt less than key value, then update
+                        
+                        key[it[0]]=it[1];
+                        
+                    }
+                    
+                }
+                
+                
+                
+            }
+            for(int i=0;i<V;i++){
+                result+=key[i];
             }
             
-        }
-        
-        // sort in increasing order of weights
-        
-        sort(edges.begin(),edges.end(),cmp);
-        
-         // first do make set operation
-        
-        for(int i=0;i<V;i++){
-            parent[i]=i;
-            rank[i]=0;
-        }
-        
-        // start picking all the edges now
-        for(int i=0;i<edges.size();i++){
-            
-            if(findParent(edges[i].u)!=findParent(edges[i].v)){
-                
-                // different component, so merge
-                
-                unionn(edges[i].u,edges[i].v);
-                result+=edges[i].weight;
-                
-                
-                
-            }
-            else{
-                // same component, so ignore
-                continue;
-            }
-            
-        }
-        
-        
-        return result;
-        
+            return result;
     }
 };
 
