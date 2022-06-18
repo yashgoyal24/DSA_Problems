@@ -7,31 +7,44 @@ class Solution {
 public:
 	int isNegativeWeightCycle(int n, vector<vector<int>>edges){
 	    
-	      // Code here
-	    vector<int> dist(n,1000000);
-	    dist[0]=0;
+	    // BELLMAN FORD ALGORITHM
 	    
-	    for(int i=1; i<=n-1; i++)
-	    {
-            for(auto &edge:edges)
-	        {
-	            if(dist[edge[0]]+edge[2]<dist[edge[1]])
-	            {
-	                dist[edge[1]]=dist[edge[0]]+edge[2];
+	    vector<int> distance(n,1000000);
+	    distance[0]=0;
+	    
+	    for(int i=1;i<=n-1;i++){
+	        
+	        // relax all edges for (n-1) times
+	        
+	        for(auto it:edges){
+	            
+	            if(distance[it[0]]+it[2]<distance[it[1]]){
+	                // relax karenge
+	                
+	               distance[it[1]]= distance[it[0]]+it[2];
+	                
 	            }
+	            
 	        }
+	        
+	        
 	    }
+	 
 	    
-        for(auto &edge:edges)
-        {
-            if(dist[edge[0]]+edge[2]<dist[edge[1]])
-            {
-               return 1;
-            }
-        }
+	    // Relax again, agar distance change hua matlab negative cycle hai
 	    
-	    return 0;
-
+	      for(auto it:edges){
+	            
+	            if(distance[it[0]]+it[2]<distance[it[1]]){
+	               // cycle hai
+	               
+	               return 1;
+	            }
+	            
+	        }
+	
+	    
+	  return 0;
 	}
 };
 
