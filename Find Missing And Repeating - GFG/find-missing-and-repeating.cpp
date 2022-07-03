@@ -18,20 +18,20 @@ public:
     for(int i=0;i<n;i++){
         xor_all=xor_all^arr[i];
     }
-    
-    int rep_xor_miss=xor_all;
-    
+  
     int diff_bit_index=0;
-    int cpy=rep_xor_miss;
-   /* while(cpy & 1 !=1){
+   
+ 
+    while((xor_all & 1) !=1){
         diff_bit_index++;
-        cpy=cpy>>1;
+        xor_all=xor_all>>1;
         
-    }*/
+    }
     
     int xor1=0;
     int xor2=0;
-    int num=xor_all & ~(xor_all - 1);;
+    int num=1<<diff_bit_index;
+  
     for(int i=0;i<n;i++){
         if((arr[i] & num)==0){
             xor1=xor1^arr[i];
