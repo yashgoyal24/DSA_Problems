@@ -1,50 +1,46 @@
 class Solution {
 public:
-vector<vector<int>> result;
-vector<int> ds;
-map<int,int> mp;
-    vector<vector<int>> permute(vector<int>& nums) {
-         for(int i=0;i<nums.size();i++){
-                mp[i]=0;
-            }
-        Func(nums);
-           
-            return result;
-        
-        
-    }
     
-    void Func(vector<int>& nums){
+    void generatePermutations(vector<int>&nums,vector<vector<int>> &result,vector<int> &visited,vector<int>&ds){
+        
+        
         
         if(ds.size()==nums.size()){
-            // add this vector to solution
+            cout<<"hello";
             result.push_back(ds);
             return;
         }
         
-        // map stores index number and wheter it is taken or not
-        
-        // add to ds
         
         for(int i=0;i<nums.size();i++){
             
-            if( mp[i]==0 ){
-                // element not found
+            if(visited[i]==0){
                 ds.push_back(nums[i]);
-                mp[i]=1;
-                Func(nums); // to pick next set of elements
-                mp[i]=0;
+                visited[i]=1;
+                generatePermutations(nums,result,visited,ds);
                 ds.pop_back();
-               
+                visited[i]=0;
             }
-        
+            
+            
             
         }
         
         
         
-        // remove from ds and trace back
+        
+    }
+    
+    
+    
+    vector<vector<int>> permute(vector<int>& nums) {
+        vector<vector<int>> result;
+        vector<int> ds;
+        vector<int> visited(nums.size(),0);
+        generatePermutations(nums,result,visited,ds);
         
         
+        
+        return result;
     }
 };
