@@ -3,9 +3,18 @@ public:
     
     void dfs(vector<vector<char>>& grid,int n,int m,int i,int j){
         
-        if(i>=0 and j>=0 and j<m and i<n and grid[i][j]=='1'){
+        
+        if(i<0 or j<0 or i>=n or j>=m){
+            return;
+        }
+        if(grid[i][j]=='1'){
+            grid[i][j]=0;
+        
+        
+        
+       // if(i>=0 and j>=0 and j<m and i<n and grid[i][j]=='1'){
             
-            grid[i][j]='0';
+          //  grid[i][j]='0';
           
             
         
