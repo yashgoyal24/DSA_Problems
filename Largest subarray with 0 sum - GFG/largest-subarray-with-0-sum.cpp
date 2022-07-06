@@ -13,40 +13,29 @@ class Solution{
     int maxLen(vector<int>&A, int n)
     {   
         // Your code here
-        
+        int sum=0;
         int maxi=0;
-        int sum=0;  //to store prefix sum
-        
-        //map to store prefix sum and its index, store only first time index, since need to find largest 
-        
-        map<int,int> mp;
-        
+        unordered_map<int,int> mp; // store prefix and its index
         for(int i=0;i<n;i++){
             
             sum+=A[i];
             
             if(sum==0){
-                
                 maxi=max(maxi,i+1);
-                
             }
-            
-            else if(mp.find(sum)!= mp.end()){
-                
-                //already present
-                
+            else if(mp.find(sum)!=mp.end()){
+                // sum already in map
                 maxi=max(maxi,i-mp[sum]);
                 
-              //  mp[sum]=i;
-                
             }
-            else
-            mp[sum]=i;
+            else{
+                // push in map
+                mp[sum]=i;
+            }
+            
+            
             
         }
-        
-        
-        
         return maxi;
     }
 };
