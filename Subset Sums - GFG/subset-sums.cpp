@@ -5,49 +5,35 @@ using namespace std;
  // } Driver Code Ends
 class Solution
 {
-    
 public:
 
-vector<int> result;
-vector<int> ds;
-int sum=0;
+  void F(vector<int> &arr,int N,int index,int sum,vector<int> &result){
+            
+            if(index>=N){
+            result.push_back(sum);
+            return;
+            }
+            // pick
+            
+            sum+=arr[index];
+            F(arr,N,index+1,sum,result);
+            
+            //don't pick
+            
+            sum-=arr[index];
+            F(arr,N,index+1,sum,result);
+            
+        }
     vector<int> subsetSums(vector<int> arr, int N)
     {
-        // Write Your Code here
+            vector<int> result;
         
-        Func(arr, N, 0);
-        return result;
-       
+            F(arr,N,0,0,result);
+            
+            return result;
     }
     
-    void Func(vector<int> arr, int N, int idx){
-        
-         if(idx>=N){
-             result.push_back(sum);
-            // sum=0;
-            return;
-        }
-        
-        
-        // pick
-        
-        sum+=arr[idx];
-      //  ds.push_back(arr[idx]);
-        Func(arr,N,idx+1);
-        
-        // remove from ds
-        
-        sum=sum-arr[idx]; // since it is already included 
-      //  ds.pop_back();
-        
-        // no pick
-        
-        Func(arr,N,idx+1);
-        
-       
-        
-    }
-    
+      
 };
 
 // { Driver Code Starts.
