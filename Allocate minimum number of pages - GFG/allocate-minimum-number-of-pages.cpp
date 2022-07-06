@@ -12,54 +12,74 @@ class Solution
 {
     public:
     //Function to find minimum number of pages.
+    
+  
+    
+    
+    
+    
     int findPages(int A[], int N, int M) 
     {
-        //code here
-        int low=A[0];
+       int low=0;
     int sum=0;
     for(int i=0;i<N;i++){
         sum+=A[i];
     }
     int high=sum;
-    int result=-1;
+    int res=-1;
     while(low<=high){
-        int mid=low+(high-low)/2;
         
-        if(isPossible(mid, A, N, M)){
-            result=mid;
-            high=mid-1; // beacuse we need to minimize
+        
+        int mid=low+(high-low)/2;
+        if(isPossible(A,N,M,mid)){
+            // try to reduce more
+            res=mid;
+            high=mid-1;
         }
         else{
-            low=mid+1;
+            // since we are getting more students, we increase the max_limit
+            low=mid+1;  
         }
         
         
+        
+        
     }
     
-    return result;
+    return res;
     }
     
-    bool isPossible(int x, int A[],int n, int students){
-        int current_count=1;
-        int sum=0;
     
-        for(int i=0;i<n;i++){
-            
-            if(sum+A[i]<=x)
-          {
-              sum+=A[i];
-          }
-            // now sum is greater than x
-            else{
-                current_count++;
-                sum=A[i];
-                if(current_count>students || A[i]>x)
+     bool isPossible(int A[],int N,int B,int max_limit){
+    
+    int stud_count=1;
+    int books=0;
+    for(int i=0;i<N;i++){
+        if(books+A[i]<=max_limit){
+            // no problem
+            books+=A[i];
+        }
+        
+        else{
+            books=A[i];
+            stud_count++;
+            if(stud_count>B || books>max_limit){
                 return false;
             }
+            
         }
-        return true;
+      
     }
+    
+    return true;
+    
+}
+    
+    
 };
+
+
+    
 
 // { Driver Code Starts.
 
