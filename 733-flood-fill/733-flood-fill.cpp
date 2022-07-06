@@ -1,45 +1,40 @@
 class Solution {
 public:
+    
+    void fillDFS(vector<vector<int>>& image, int i, int j, int color,int n,int m,int old_color){
+        
+        
+        if(i>=0 and j>=0 and i<n and j<m and image[i][j]==old_color){
+            
+            image[i][j]=color;
+        
+            fillDFS(image,i+1,j,color,n,m,old_color);
+            fillDFS(image,i,j+1,color,n,m,old_color);
+            fillDFS(image,i,j-1,color,n,m,old_color);
+            fillDFS(image,i-1,j,color,n,m,old_color);
+              
+        }
+      
+        
+        
+        
+    }
+    
+    
+    
     vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int color) {
         
-        // need to perform dfs in this question
-       
-        int current_color=image[sr][sc];
-        if(current_color==color)
+        int i=sr;
+        int j=sc;
+        int n=image.size();
+        int m=image[0].size();
+        int old_color=image[i][j];
+        if(old_color==color)
             return image;
-        DFS(image,sr,sc,current_color,color);
+        fillDFS(image,i,j,color,n,m,old_color);
+        
         
         
         return image;
-        
-        }
-        
-        
-        
-    
-
-void DFS(vector<vector<int>>& grid,int i,int j,int current_color, int color){
-        
-        // check for overflow for i and j
-        
-        if(i>=0 && j>=0 && j<grid[0].size() && i<grid.size() && grid[i][j]==current_color){
-            
-            // 1 ko 0 banao, in short make it visited so that ispe vaapis naa aaye
-            
-            grid[i][j]=color;
-            
-            // make 4 calls now
-            
-            DFS(grid,i,j+1,current_color,color); // right
-            DFS(grid,i,j-1,current_color,color); // left
-            DFS(grid,i-1,j,current_color,color); // up
-            DFS(grid,i+1,j,current_color,color); // down
-            
-            
-            
-            
-        }
-        
-        
     }
 };
