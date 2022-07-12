@@ -7,12 +7,12 @@ class Solution {
   public:
     int setBits(int N) {
         // Write Your Code here
-        int counter=0;
+        int result=0;
         while(N>0){
             N=N&(N-1);
-            ++counter;
+            result++;
         }
-        return counter;
+       return result; 
     }
 };
 
