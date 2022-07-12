@@ -15,19 +15,15 @@ class Solution{
         
         // Your logic here
         
-        //do xor operation to find differemt bits
+        //count no. of set bits in xor of both numbers
         
-        int c=a^b;
-        
-        //now calculate number of set bits and return it
+        int xor1=a^b;
         int counter=0;
-        while(c>0){
+        while(xor1>0){
+            xor1=xor1&(xor1-1);
             counter++;
-            c=c&(c-1);
         }
-        
         return counter;
-        
     }
 };
 
