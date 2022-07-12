@@ -1,14 +1,19 @@
 class Solution {
 public:
-    int getSum(int a, int b) {
+    int getSum(unsigned a, unsigned b) {
         
-        int exor=a^b;
-        int and1=(unsigned)(a&b)<<1;
+        int sum,carry;
+        while(carry!=0){
+            
+            sum=a^b;
+            carry=(a&b)<<1;
+            a=sum;
+            b=carry;
+            
+        }
         
-        return exor+and1;
         
-        
-        
+       return sum; 
     }
     
     
